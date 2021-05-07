@@ -49,7 +49,7 @@ class User extends Authenticatable
         return $this->roles()->where('name', $role)->count() == 1;
     }
 
-    public function rooms() {
-        return $this->hasMany(Room::class);
+    public function userRomes() {
+        return $this->hasMany(RoomUsers::class)->select(['user_id', 'role_id', 'room_id']);
     }
 }

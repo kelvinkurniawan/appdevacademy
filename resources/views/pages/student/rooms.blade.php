@@ -17,7 +17,7 @@
                         </nav>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <a href="#" data-toggle="modal" data-target="#createNew" class="btn btn-sm btn-neutral">New Room</a>
+                        <a href="#" data-toggle="modal" data-target="#createNew" class="btn btn-sm btn-neutral">Join Room</a>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
     <div class="container-fluid mt--6">
         <div class="row">
             <div class="col">
-                @livewire('rooms')
+                @livewire('student-rooms')
             </div>
         </div>
 

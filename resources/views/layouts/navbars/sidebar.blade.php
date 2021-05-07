@@ -84,9 +84,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
+                    @if(auth()->user()->hasRole('admin'))
+                    <a class="nav-link" href="{{ route('admin.room.manage') }}">
                         <i class="ni ni-building text-blue"></i> {{ __('Classes') }}
                     </a>
+                    @endif
+                    @if(auth()->user()->hasRole('student'))
+                    <a class="nav-link" href="{{ route('student.room.manage') }}">
+                        <i class="ni ni-building text-blue"></i> {{ __('Classes') }}
+                    </a>
+                    @endif
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#user-collapse" data-toggle="collapse" role="button" aria-expanded="true"
