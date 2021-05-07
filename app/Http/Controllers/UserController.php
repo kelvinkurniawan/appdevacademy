@@ -14,8 +14,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $model
      * @return \Illuminate\View\View
      */
+
     public function index(User $model)
     {
-        return view('users.index');
+        if(request()->user()->hasRole('admin')){
+            return view('users.index');
+        }else{
+            return view('dashboard');
+        }
     }
 }
