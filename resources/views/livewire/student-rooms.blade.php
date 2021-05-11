@@ -37,8 +37,7 @@
                                 x-placement="bottom-end">
                                 <a class="dropdown-item" href="#">Open Room</a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update"
-                                    wire:click.prevent="edit({{ $data->id }})" data-keyboard="false">Edit</a>
-                                <a class="dropdown-item" href="#" wire:click.prevent="delete({{ $data->id }})">Delete</a>
+                                    wire:click.prevent="edit({{ $data->id }})" data-keyboard="false">Leave</a>
                             </div>
                         </div>
                     </td>

@@ -37,8 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // Student
+    Route::get('/my/room', ['as' => 'student.room.manage', 'uses' => 'App\Http\Controllers\RoomController@indexStudent']);
+    Route::get('/my/room/{id}', ['as' => 'room.student.detail', 'uses' => 'App\Http\Controllers\RoomController@roomDetailStudent']);
 
-
-    Route::get('/my/rooms', ['as' => 'student.room.manage', 'uses' => 'App\Http\Controllers\RoomController@indexStudent']);
 });
 

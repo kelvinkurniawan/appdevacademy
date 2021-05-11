@@ -77,7 +77,45 @@
                 </div>
             </form>
             <!-- Navigation -->
+            @if (request()->routeIs('room.student.detail'))
+                <hr class="my-3">
+                <!-- Heading -->
+                <!-- Student room navigation -->
+                <h6 class="navbar-heading text-muted">{{ $room->name }}</h6>
+                <ul class="navbar-nav">
+                    @foreach ($data as $row)
+                        @if ($row->type->id == 1)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('home') }}">
+                                    <i class="ni ni-books text-primary"></i> {{ $row->title }}
+                                </a>
+                            </li>
+                        @endif
+                        @if ($row->type->id == 2)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="ni ni-ruler-pencil text-primary"></i> {{ $row->title }}
+                            </a>
+                        </li>
+                        @endif
+                        @if ($row->type->id == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="ni ni-notification-70 text-primary"></i> {{ $row->title }}
+                            </a>
+                        </li>
+                        @endif
+                    @endforeach
+                </ul>
+                <!-- End -->
+            @endif
+            <hr class="my-3">
+            <!-- Heading -->
+            <!-- Student room navigation -->
+            <h6 class="navbar-heading text-muted">Navigation</h6>
+
             <ul class="navbar-nav">
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
@@ -116,9 +154,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fab fa-laravel" style="color: #f4645f;"></i>
-                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Laravel Examples') }}</span>
+                    <a class="nav-link" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <i class="fab fa-laravel" ></i>
+                        <span class="nav-link-text" >{{ __('My Profile') }}</span>
                     </a>
                     <div class="collapse" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">

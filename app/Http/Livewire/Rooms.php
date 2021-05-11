@@ -14,7 +14,7 @@ class Rooms extends Component
 
     public function render()
     {
-        $this->data = Room::all();
+        $this->data = Room::where('user_id', Auth::id())->get();
         return view('livewire.rooms');
     }
 
