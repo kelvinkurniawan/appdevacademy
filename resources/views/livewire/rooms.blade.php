@@ -56,7 +56,7 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
                                 style="position: absolute; transform: translate3d(-160px, 31px, 0px); top: 0px; left: 0px; will-change: transform;"
                                 x-placement="bottom-end">
-                                <a class="dropdown-item" href="#">Open Room</a>
+                                <a class="dropdown-item" href="{{ route('admin.room.manage.detail', $row->id) }}">Open Room</a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update" wire:click.prevent="edit({{ $row->id }})" data-keyboard="false">Edit</a>
                                 <a class="dropdown-item" href="#" wire:click.prevent="delete({{ $row->id }})">Delete</a>
                             </div>

@@ -18,7 +18,11 @@
                 @foreach ($data->userRomes as $row)
                 <tr>
                     <th scope="row">
-                        {{ $row->room->name }}
+                        <a
+                            href="{{ route('room.student.detail', ['id' => $row->room->id]) }}"
+                            style="color: #525f7f">
+                            {{ $row->room->name }}
+                        </a>
                     </th>
                     <td>
                         {{ \Illuminate\Support\Str::limit($row->room->description, 20, $end='...') }}
@@ -35,7 +39,7 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
                                 style="position: absolute; transform: translate3d(-160px, 31px, 0px); top: 0px; left: 0px; will-change: transform;"
                                 x-placement="bottom-end">
-                                <a class="dropdown-item" href="#">Open Room</a>
+                                <a class="dropdown-item" href="{{ route('room.student.detail', ['id' => $row->room->id]) }}">Open Room</a>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update"
                                     wire:click.prevent="edit({{ $data->id }})" data-keyboard="false">Leave</a>
                             </div>

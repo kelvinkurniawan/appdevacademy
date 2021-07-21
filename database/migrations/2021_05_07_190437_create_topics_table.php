@@ -19,7 +19,7 @@ class CreateTopicsTable extends Migration
             $table->text('body');
             $table->boolean('is_replied');
             $table->unsignedBigInteger('type_id');
-            $table->dateTime('deadline');
+            $table->dateTime('deadline')->nullable();
             $table->unsignedBigInteger('parent')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('room_id');

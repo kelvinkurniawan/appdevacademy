@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
     Route::get('/manage/rooms', ['as' => 'admin.room.manage', 'uses' => 'App\Http\Controllers\RoomController@index']);
-
+    Route::get('/manage/rooms/{id}', ['as' => 'admin.room.manage.detail', 'uses' => 'App\Http\Controllers\RoomController@roomDetailTeacher']);
 
     // Student
     Route::get('/my/room', ['as' => 'student.room.manage', 'uses' => 'App\Http\Controllers\RoomController@indexStudent']);

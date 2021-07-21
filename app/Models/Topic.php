@@ -14,4 +14,8 @@ class Topic extends Model
     public function type(){
         return $this->belongsTo(TopicTypes::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

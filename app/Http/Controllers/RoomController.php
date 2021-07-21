@@ -34,4 +34,9 @@ class RoomController extends Controller
         // return $data;
         return view('pages.student.room_detail', compact('data', 'room'));
     }
+
+    public function roomDetailTeacher($roomId){
+        $room = Room::where('id', $roomId)->first();
+        return view('pages.manage-room', compact('room'));
+    }
 }
