@@ -35,10 +35,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/manage/rooms', ['as' => 'admin.room.manage', 'uses' => 'App\Http\Controllers\RoomController@index']);
     Route::get('/manage/rooms/{id}', ['as' => 'admin.room.manage.detail', 'uses' => 'App\Http\Controllers\RoomController@roomDetailTeacher']);
+    Route::get('/manage/rooms/{id}/topic/{topic_id}', ['as' => 'admin.topic.detail', 'uses' => 'App\Http\Controllers\TopicController@show']);
 
     // Student
     Route::get('/my/room', ['as' => 'student.room.manage', 'uses' => 'App\Http\Controllers\RoomController@indexStudent']);
     Route::get('/my/room/{id}', ['as' => 'room.student.detail', 'uses' => 'App\Http\Controllers\RoomController@roomDetailStudent']);
+    Route::get('/my/rooms/{id}/topic/{topic_id}', ['as' => 'student.topic.detail', 'uses' => 'App\Http\Controllers\TopicController@show']);
 
 });
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTopicTypes extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateTopicTypes extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('topic_types', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->timestamps();
-        });
-
-        Schema::table('topics', function (Blueprint $table) {
-            $table->foreign('type_id')->references('id')->on('topic_types')->onDelete('cascade');
         });
     }
 
@@ -32,6 +26,6 @@ class CreateTopicTypes extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tasks');
     }
 }

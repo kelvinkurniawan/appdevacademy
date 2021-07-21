@@ -4,19 +4,18 @@
         <h3 class="mb-0">Topic List</h3>
     </div>
         @foreach ($data as $row)
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a href={{ route('admin.topic.detail', [$roomId, $row->id]) }} class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{ $row->title }}</h5>
-                <div class="d-flex flex-column align-items-end justify-content-between">
                     <small>{{ $row->created_at->diffForHumans() }} by {{ $row->user->name }}</small>
-                    @if($row->type->name == "Assignment")
-                        <small>Will be end in {{ $row->deadline }}</small>
-                    @endif
-                </div>
+
             </div>
-            <p class="mb-1">{!! $row->body !!}
-            </p>
-            <small>{{ $row->type->name }}</small>
+            <small>
+                {{ $row->type->name }}
+                @if($row->type->name == "Assignment")
+                    <strong>Will be end in {{ $row->deadline }}</strong>
+                @endif
+        </small>
         </a>
         @endforeach
         @include('livewire.rooms.create-new-topic')

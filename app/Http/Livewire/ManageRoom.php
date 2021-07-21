@@ -5,13 +5,14 @@ namespace App\Http\Livewire;
 use App\Models\Room;
 use Livewire\Component;
 use App\Models\Topic;
+use App\Models\TopicEmbed;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ManageRoom extends Component
 {
 
-    public $roomId, $data, $room, $title, $body, $parent = 0, $type = 0, $optIsReplied = false, $optCodeEditor = false, $optYoutube = false, $deadline;
+    public $roomId, $data, $room, $title, $body, $parent = 0, $type, $optIsReplied = false, $optCodeEditor = false, $optYoutube = false, $deadline, $youtubeLink;
 
     public function mount($roomId){
         $this->roomId = $roomId;
@@ -26,7 +27,14 @@ class ManageRoom extends Component
     }
 
     public function store(){
-        Topic::create([
+
+        $this->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'type' => 'required',
+        ]);
+
+        $topic = Topic::create([
             'title' => $this->title,
             'body' => $this->body,
             'is_replied' => $this->optIsReplied,
@@ -36,6 +44,14 @@ class ManageRoom extends Component
             'user_id' => Auth::id(),
             'room_id' => $this->roomId,
         ]);
+
+        if($this->youtubeLink != ""){
+            TopicEmbed::create([
+                'url' => $this->youtubeLink,
+                'topic_id' => $topic->id,
+                'type' => 1
+            ]);
+        }
 
 
         $this->resetInput();

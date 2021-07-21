@@ -15,12 +15,17 @@
                             <div class="form-group">
                                 <label class="form-control-label">Title</label>
                                 <input type="text" wire:model.defer="title" class="form-control" placeholder="Topic Title">
+                                @error('title') <span class="error text-xs text-danger">{{ $message }}</span> @enderror
                             </div>
-                            <div class="form-group" wire:model.debounce.365ms="body" wire:ignore>
-                                <label class="form-control-label">Body</label>
-                                <input id="body" type="hidden" value="{{$this->body}}" name="body">
-                                <trix-editor input="body"></trix-editor>
+                            <div class="form-group" wire:ignore>
+                                <trix-editor
+                                    class="formatted-content"
+                                    x-ref="trix"
+                                    x-on:trix-change="$dispatch('input', event.target.value)"
+                                    wire:model.debounce.999999ms="body">
+                                </trix-editor>
                             </div>
+                            @error('body') <span class="error text-xs text-danger pt--2">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -40,6 +45,7 @@
                                     <option value="2">Assignment</option>
                                     <option value="3">Announcment</option>
                                 </select>
+                                @error('type') <span class="error text-xs text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group" style="display: none" id="deadline">
                                 <label for="exampleFormControlSelect1" class="form-control-label">Deadline</label>
@@ -68,7 +74,7 @@
                         </div>
                         <div class="col">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="isYoutube" id="isYoutube" wire.click.defer="enableCodeEditor()">
+                                <input class="form-check-input" type="checkbox" value="isYoutube" id="isYoutube" wire.click.defer="enableYoutube()">
                                 <label class="form-control-label" for="isYoutube">
                                     Enable Youtube Video
                                 </label>
@@ -78,7 +84,8 @@
                     <hr>
                     <div class="form-group" style="display: none" id="youtube-link">
                         <label class="form-control-label">Youtube link</label>
-                        <input type="text" wire:model="name" class="form-control" placeholder="https://youtu.be/saSlkMx">
+                        <input type="text" wire:model.defer="youtubeLink" class="form-control" placeholder="https://youtu.be/saSlkMx">
+                        @error('youtubeLink') <span class="error text-xs text-danger">{{ $message }}</span> @enderror
                     </div>
                 </form>
             </div>
@@ -108,8 +115,6 @@
         });
 
         $('#select-type').change(function() {
-            $('#type').val($("#select-type").val());
-            console.log($('#type').val())
             if ($("#select-type").val() == 2) {
                 $('#deadline').slideDown();
             }else{

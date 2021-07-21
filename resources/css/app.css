@@ -5,3 +5,7 @@
 .ck-editor__editable {
     min-height: 200px;
 }
+
+.breadcrumb{
+    font-size: 12px!important;
+}

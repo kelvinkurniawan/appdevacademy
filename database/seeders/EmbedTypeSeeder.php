@@ -23,9 +23,5 @@ class EmbedTypeSeeder extends Seeder
             'name' => 'Discord',
         ]);
 
-        DB::table('topic_types')->insert([
-            'name' => 'Announcment',
-        ]);
-
     }
 }

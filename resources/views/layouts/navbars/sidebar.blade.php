@@ -77,35 +77,27 @@
                 </div>
             </form>
             <!-- Navigation -->
-            @if (request()->routeIs('room.student.detail'))
+            @if (request()->routeIs('room.student.detail') || request()->routeIs('student.topic.detail'))
                 <hr class="my-3">
                 <!-- Heading -->
                 <!-- Student room navigation -->
                 <h6 class="navbar-heading text-muted">{{ $room->name }}</h6>
                 <ul class="navbar-nav">
-                    @foreach ($data as $row)
-                        @if ($row->type->id == 1)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">
-                                    <i class="ni ni-books text-primary"></i> {{ $row->title }}
-                                </a>
-                            </li>
-                        @endif
-                        @if ($row->type->id == 2)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">
-                                <i class="ni ni-ruler-pencil text-primary"></i> {{ $row->title }}
-                            </a>
-                        </li>
-                        @endif
-                        @if ($row->type->id == 1)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">
-                                <i class="ni ni-notification-70 text-primary"></i> {{ $row->title }}
-                            </a>
-                        </li>
-                        @endif
-                    @endforeach
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">
+                            <i class="ni ni-books text-primary"></i> Information
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">
+                            <i class="ni ni-badge text-primary"></i> Discussion
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">
+                            <i class="ni ni-bulb-61 text-primary"></i> Project
+                        </a>
+                    </li>
                 </ul>
                 <!-- End -->
             @endif
@@ -133,6 +125,7 @@
                     </a>
                     @endif
                 </li>
+                @if(auth()->user()->hasRole('admin'))
                 <li class="nav-item">
                     <a class="nav-link" href="#user-collapse" data-toggle="collapse" role="button" aria-expanded="true"
                         aria-controls="user-collapse">
@@ -153,6 +146,7 @@
                         </ul>
                     </div>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
                         <i class="fab fa-laravel" ></i>
@@ -165,55 +159,19 @@
                                     {{ __('User profile') }}
                                 </a>
                             </li>
+                            @if(auth()->user()->hasRole('admin'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.index') }}">
                                     {{ __('User Management') }}
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('icons') }}">
                         <i class="ni ni-settings-gear-65 text-blue"></i> {{ __('Settings') }}
-                    </a>
-                </li>
-            </ul>
-            <!-- Divider -->
-            <hr class="my-3">
-            <!-- Heading -->
-            <h6 class="navbar-heading text-muted">Documentation</h6>
-            <!-- Navigation -->
-            <ul class="navbar-nav mb-md-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/getting-started/overview.html">
-                        <i class="ni ni-spaceship"></i> Getting started
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/foundation/colors.html">
-                        <i class="ni ni-palette"></i> Foundation
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://argon-dashboard-laravel.creative-tim.com/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Components
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('icons') }}">
-                        <i class="ni ni-planet text-blue"></i> {{ __('Icons') }}
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ route('map') }}">
-                        <i class="ni ni-pin-3 text-orange"></i> {{ __('Maps') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('table') }}">
-                        <i class="ni ni-bullet-list-67 text-default"></i>
-                        <span class="nav-link-text">Tables</span>
                     </a>
                 </li>
             </ul>
