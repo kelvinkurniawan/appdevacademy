@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Task extends Model
 {
     protected $guarded = [];
     use HasFactory;
 
-    public function tasks(){
-        return $this->hasMany(Task::class);
+    public function TaskProgresses(){
+        return $this->hasMany(TaskProgress::class);
     }
 }

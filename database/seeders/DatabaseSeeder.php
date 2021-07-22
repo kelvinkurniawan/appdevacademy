@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
         $this->call(TopicTypeSeeder::class);
         $this->call(EmbedTypeSeeder::class);
+        $this->call(UserRoles::class);
     }
 }

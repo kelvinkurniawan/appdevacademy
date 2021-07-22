@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
-use App\Models\ProjectUsers;
-use App\Models\User;
+use App\Models\Task;
+use App\Models\TaskProgress;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
-class ProjectController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +18,6 @@ class ProjectController extends Controller
     public function index()
     {
         //
-
-        $data = User::where('id', Auth::id())->with(['userProjects.project', 'userProjects.role'])->first();
-
-        return view('pages.project.index', compact('data'));
-        return $data;
     }
 
     /**
@@ -34,8 +28,6 @@ class ProjectController extends Controller
     public function create()
     {
         //
-
-        return view('pages.project.create');
     }
 
     /**
@@ -49,23 +41,42 @@ class ProjectController extends Controller
         //
 
         $request->validate([
-            'name' => 'required',
+            'task' => 'required',
+            'description' => 'required'
         ]);
 
-        $project = Project::create([
-            'name' => $request->name,
+        $task = Task::create([
+            'task' => $request->task,
             'description' => $request->description,
-            'user_id' => Auth::id(),
-            'code' => Str::random(6),
+            'current_status' => 0,
+            'updated_at' => Carbon::now(),
+            'project_id' => $request->project_id
         ]);
 
-        ProjectUsers::create([
+        TaskProgress::create([
+            'status' => 0,
+            'task_id' => $task->id,
             'user_id' => Auth::id(),
-            'project_id' => $project->id,
-            'role_id' => 2
+            'updated_at' => Carbon::now()
         ]);
 
-        return redirect()->route('project.index')->with('success', 'Project added');
+        return redirect()->route('project.show', $request->project_id)->with('success', 'Task added!');
+    }
+
+    public function updateTaskStatus(Request $request){
+
+        TaskProgress::create([
+            'status' => $request->status,
+            'task_id' => $request->task_id,
+            'user_id' => Auth::id(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        $task = Task::find($request->task_id);
+        $task->current_status = $request->status;
+        $task->save();
+
+        return redirect()->route('project.show', $request->task_id)->with('success', 'Task Updated!');
 
     }
 
@@ -79,8 +90,7 @@ class ProjectController extends Controller
     {
         //
 
-        $data = Project::where('id', $id)->with('tasks')->first();
-        return view('pages.project.show', compact('data'));
+        return Task::where('id', $id)->with('taskProgresses')->first();
     }
 
     /**
@@ -92,9 +102,6 @@ class ProjectController extends Controller
     public function edit($id)
     {
         //
-        $data = Project::where('id', $id)->first();
-
-        return view('pages.project.edit', compact('data'));
     }
 
     /**
@@ -104,18 +111,16 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Task $task)
     {
         //
 
         $request->validate([
-            'name' => 'required',
+            'task' => 'required',
             'description' => 'required'
         ]);
 
-        $project->update($request->all());
 
-        return redirect()->route('project.index')->with('success', 'Project Updated!');
     }
 
     /**
@@ -124,11 +129,8 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
         //
-        $project->delete();
-
-        return redirect()->route('project.index')->with('success', 'Project Deleted!');
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::resource('/project', ProjectController::class);
+    Route::resource('/project/task', TaskController::class);
+    Route::post('/project/task/setstatus', ['as' => 'task.setstatus', 'uses' => 'App\Http\Controllers\TaskController@updateTaskStatus']);
     // Student
     Route::get('/my/room', ['as' => 'student.room.manage', 'uses' => 'App\Http\Controllers\RoomController@indexStudent']);
     Route::get('/my/room/{id}', ['as' => 'room.student.detail', 'uses' => 'App\Http\Controllers\RoomController@roomDetailStudent']);
