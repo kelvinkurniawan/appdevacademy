@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RoomController;
@@ -37,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/manage/rooms/{id}', ['as' => 'admin.room.manage.detail', 'uses' => 'App\Http\Controllers\RoomController@roomDetailTeacher']);
     Route::get('/manage/rooms/{id}/topic/{topic_id}', ['as' => 'admin.topic.detail', 'uses' => 'App\Http\Controllers\TopicController@show']);
 
+
+    Route::resource('/project', ProjectController::class);
     // Student
     Route::get('/my/room', ['as' => 'student.room.manage', 'uses' => 'App\Http\Controllers\RoomController@indexStudent']);
     Route::get('/my/room/{id}', ['as' => 'room.student.detail', 'uses' => 'App\Http\Controllers\RoomController@roomDetailStudent']);

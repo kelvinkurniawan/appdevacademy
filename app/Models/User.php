@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function userRomes() {
         return $this->hasMany(RoomUsers::class)->select(['user_id', 'role_id', 'room_id']);
     }
+
+    public function userProjects() {
+        return $this->hasMany(ProjectUsers::class);
+    }
 }
